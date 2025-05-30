@@ -1,0 +1,17 @@
+<!-- templates/chat/connect.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Connect to Talk Hub</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 Connect to Talk Hub</h1>
+    <form action="{% url 'chat' %}" method="get">
+      <button type="submit">Connect</button>
+    </form>
+  </div>
+</body>
+</html>
