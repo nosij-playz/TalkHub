@@ -1,8 +1,9 @@
+import eventlet
+eventlet.monkey_patch()  # <- MUST be at the very top before any other imports
+
 from flask import Flask, request
 from flask_socketio import SocketIO, emit
 import random
-import eventlet
-eventlet.monkey_patch()  # <- Required
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*', async_mode='eventlet')
@@ -22,7 +23,7 @@ def handle_connect():
     user_id_to_sid[user_id] = sid
     sid_to_user_id[sid] = user_id
 
-    emit('your_id', user_id, room=sid)  # Important: send only to connecting client
+    emit('your_id', user_id, room=sid)
     print(f"User connected: {user_id} (SID: {sid})")
 
 @socketio.on('private_message')
