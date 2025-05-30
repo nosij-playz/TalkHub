@@ -1,32 +1,49 @@
-from flask import Flask, render_template, request
-from flask_socketio import SocketIO, send
+from flask import Flask, request
+from flask_socketio import SocketIO, emit
+import random
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*')
 
-clients = set()
+# Maps user ID to Socket.IO session ID
+user_id_to_sid = {}
+sid_to_user_id = {}
 
 @app.route('/')
 def index():
-    return {"message": "WebSocket Relay Server is Running!"}
+    return {"message": "Private Chat Server is Running!"}
 
 @socketio.on('connect')
 def handle_connect():
-    clients.add(request.sid)
-    print(f"Client connected: {request.sid}")
+    user_id = str(random.randint(1000, 9999))  # Simple unique ID
+    sid = request.sid
+
+    # Save mapping
+    user_id_to_sid[user_id] = sid
+    sid_to_user_id[sid] = user_id
+
+    # Send the user their ID
+    emit('your_id', user_id)
+    print(f"User connected: {user_id} (SID: {sid})")
+
+@socketio.on('private_message')
+def handle_private_message(data):
+    to_id = data.get('to')
+    message = data.get('message')
+    from_id = sid_to_user_id.get(request.sid)
+
+    to_sid = user_id_to_sid.get(to_id)
+
+    if to_sid:
+        emit('message', f"{from_id}: {message}", to=to_sid)
+    else:
+        emit('message', f"User {to_id} is not online.")
 
 @socketio.on('disconnect')
 def handle_disconnect():
-    clients.discard(request.sid)
-    print(f"Client disconnected: {request.sid}")
-
-@socketio.on('message')
-def handle_message(msg):
-    print(f"Message from {request.sid}: {msg}")
-    # Relay to all clients except the sender
-    for client in clients:
-        if client != request.sid:
-            socketio.emit('message', msg, room=client)
-
-if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=10000)
+    sid = request.sid
+    user_id = sid_to_user_id.get(sid)
+    if user_id:
+        user_id_to_sid.pop(user_id, None)
+        sid_to_user_id.pop(sid, None)
+        print(f"User disconnected: {user_id}")
