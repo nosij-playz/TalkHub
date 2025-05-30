@@ -1,11 +1,12 @@
 from flask import Flask, request
 from flask_socketio import SocketIO, emit
 import random
+import eventlet
+eventlet.monkey_patch()  # <- Required
 
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins='*')
+socketio = SocketIO(app, cors_allowed_origins='*', async_mode='eventlet')
 
-# Maps user ID to Socket.IO session ID
 user_id_to_sid = {}
 sid_to_user_id = {}
 
@@ -15,15 +16,13 @@ def index():
 
 @socketio.on('connect')
 def handle_connect():
-    user_id = str(random.randint(1000, 9999))  # Simple unique ID
+    user_id = str(random.randint(1000, 9999))
     sid = request.sid
 
-    # Save mapping
     user_id_to_sid[user_id] = sid
     sid_to_user_id[sid] = user_id
 
-    # Send the user their ID
-    emit('your_id', user_id)
+    emit('your_id', user_id, room=sid)  # Important: send only to connecting client
     print(f"User connected: {user_id} (SID: {sid})")
 
 @socketio.on('private_message')
@@ -47,3 +46,6 @@ def handle_disconnect():
         user_id_to_sid.pop(user_id, None)
         sid_to_user_id.pop(sid, None)
         print(f"User disconnected: {user_id}")
+
+if __name__ == '__main__':
+    socketio.run(app, host='0.0.0.0', port=10000)
