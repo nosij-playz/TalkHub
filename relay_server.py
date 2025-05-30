@@ -4,6 +4,7 @@ eventlet.monkey_patch()  # <- MUST be at the very top before any other imports
 from flask import Flask, request
 from flask_socketio import SocketIO, emit
 import random
+import os
 
 app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins='*', async_mode='eventlet')
@@ -49,4 +50,5 @@ def handle_disconnect():
         print(f"User disconnected: {user_id}")
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=10000)
+    port = int(os.environ.get("PORT", 10000))
+    socketio.run(app, host='0.0.0.0', port=port)
