@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <header class="app-header">
+  TalkHub: Private Chat App
+    </header>
+    <title>Server Busy</title>
+    <link rel="stylesheet" href="{% static 'styles/server_busy.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>🚫 Server Unavailable</h2>
+        <p>⚠️ The TalkHub server could not be reached.<br>Please make sure the server is live and try again later.</p>
+        <a href="{% url 'dashboard' %}" class="btn">← Back to Dashboard</a>
+    </div>
+</body>
+</html>

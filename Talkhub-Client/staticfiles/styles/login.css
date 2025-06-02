@@ -1,0 +1,140 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Moved from left to right */
+  overflow: hidden;
+}   
+
+
+.container {
+  background-color: #1e3a4c;
+  padding: 2.5rem;
+  border-radius: 35px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  width: 350px;
+  max-width: 90%;
+  margin-right: 5vw; /* Move to right instead of left */
+
+  /* animation */
+  animation: morphIn 1s ease-out forwards;
+  transform-origin: right center; /* Optional tweak */
+}
+
+@keyframes morphIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) skewX(10deg) rotate(-5deg);
+    border-radius: 0 70% 10% 60%;
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05) skewX(0deg) rotate(1deg);
+    border-radius: 10% 30% 50% 20%;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) skewX(0) rotate(0);
+    border-radius: 35px;
+  }
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.8rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px #000;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.2rem;
+}
+
+label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: none;
+  background: #e6f0ff;
+  color: #000;
+  font-size: 1rem;
+}
+
+button[type="submit"],
+.generate-btn {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: #28a745;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover,
+.generate-btn:hover {
+  background-color: #218838;
+}
+
+a {
+  display: block;
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #1abc9c;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #16a085;
+}
+
+/* Optional note styling */
+.note {
+  font-size: 14px;
+  color: #ffcc00;
+  margin-top: 8px;
+  font-style: italic;
+}
+.image-display {
+  position: absolute;
+  left: 5vw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.image-display img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  opacity: 0;
+  animation: fadeInScale 1s ease-in-out forwards;
+}

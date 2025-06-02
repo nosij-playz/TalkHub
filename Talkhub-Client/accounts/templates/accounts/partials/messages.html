@@ -1,0 +1,7 @@
+{% for message in chat_history %}
+  <div class="msg {% if message.sender == request.user %}sender{% else %}receiver{% endif %}">
+    <div class="bubble">
+      {{ message.message }}
+    </div>
+  </div>
+{% endfor %}

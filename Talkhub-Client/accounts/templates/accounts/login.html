@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <header class="app-header">
+  TalkHub: Private Chat App
+</header>
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            <label for="id_userid">Talkhub id:</label>
+            <input type="text" name="userid" id="id_userid" required>
+
+            <label for="id_password">Password:</label>
+            <input type="password" name="password" id="id_password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <a href="{% url 'signup' %}">Don't have an account?</a>
+    </div>
+
+    <div class="image-display">
+        <img id="animated-image" src="" alt="Rotating Image" />
+    </div>
+
+    <!-- Inject Django's static path into JS -->
+    <script>
+        const staticBase = "{% static '' %}";
+    </script>
+    <script src="{% static 'scripts/Animate.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Talkhub Chat</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'styles/chat.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const titleEl = document.querySelector('.top-bar h2');
+      if (titleEl) {
+        titleEl.style.cursor = 'pointer';
+        titleEl.addEventListener('click', () => {
+          window.location.href = '/dashboard';
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="left">
+      <h2>Talkhub</h2>
+      <div class="form-wrapper">
+        <form method="post" class="add-user-form">
+          {% csrf_token %}
+          <input type="text" name="new_userid" placeholder="Enter 10-digit UserID" maxlength="10" required pattern="\d{10}">
+          <button type="submit" name="add_user">Add</button>
+        </form>
+      </div>
+    </div>
+    <div class="right">
+      <a href="{% url 'profile' %}" class="btn-dashboard">👤 Profile</a>
+      <!-- Toggle Switch -->
+      <label class="toggle-switch" title="Toggle Dark Mode">
+        <input type="checkbox" id="modeToggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Main Body -->
+  <div class="main">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      {% for user in users %}
+        <a href="{% url 'chat_with_user' user.id %}" class="user-entry {% if user == active_user %}active{% endif %}">
+          {{ user.name }}
+          {% if user.id in online_ids %}
+            <span class="green-dot" title="Online"></span>
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+
+    <!-- Chat Section -->
+    <div class="chat-area">
+      {% if active_user %}
+        <div class="chat-header">{{ active_user.name }}</div>
+
+        <div class="chat-history" data-user-id="{{ active_user.id }}">
+          {% include 'accounts/partials/messages.html' %}
+        </div>
+
+        <form method="post" class="chat-input" action="{% url 'send_message' active_user.id %}">
+          {% csrf_token %}
+          <input type="text" name="message" placeholder="Type a message..." required />
+          <button type="submit">Send</button>
+        </form>
+      {% else %}
+        <div class="chat-placeholder">Select a user to start chatting</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <script src="{% static 'scripts/chat.js' %}"></script>
+  <script>
+    const toggle = document.getElementById("modeToggle");
+
+    // On page load, apply saved mode
+    window.onload = () => {
+      if (localStorage.getItem("mode") === "dark") {
+        document.body.classList.add("dark-mode");
+        toggle.checked = true;
+      }
+    };
+
+    toggle.addEventListener("change", () => {
+      if (toggle.checked) {
+        document.body.classList.add("dark-mode");
+        localStorage.setItem("mode", "dark");
+      } else {
+        document.body.classList.remove("dark-mode");
+        localStorage.setItem("mode", "light");
+      }
+    });
+  </script>
+</body>
+</html>

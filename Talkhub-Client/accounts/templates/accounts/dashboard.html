@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <header class="app-header">
+  TalkHub: Private Chat App
+</header>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static '/styles/dashboard.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="welcome">
+            <span class="welcome-text">Welcome,</span><br>
+            <span class="user-name">{{ request.user.name }}</span>
+        </div>
+
+        <p>Your TalkhubID: {{ request.user.userid }}</p>
+
+        <form action="{% url 'start_chatting' %}" method="post" class="chat-form">
+            {% csrf_token %}
+            <button type="submit" class="btn">Start Chatting</button>
+        </form>
+
+        <a href="{% url 'logout' %}" class="logout-link">Logout</a>
+    </div>
+    <div class="image-display">
+        <img id="animated-image" src="" alt="Rotating Image" />
+    </div>
+    <script src="{% static 'scripts/Animate.js' %}"></script>
+</body>
+</html>

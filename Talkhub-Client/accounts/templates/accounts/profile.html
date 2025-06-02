@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8">
+  <title>Your Profile</title>
+  <link rel="stylesheet" href="{% static 'styles/profile.css' %}">
+</head>
+<body>
+  <h2>Your Profile</h2>
+  <a href="{% url 'chat' %}" class="back-btn">← Back to Chat</a>
+  <form method="post" class="profile-form">
+    {% csrf_token %}
+    <label>Talkhub id</label>
+    <input type="text" value="{{ user.userid }}" readonly>
+
+    <label>Name</label>
+    <input type="text" name="name" value="{{ user.name }}">
+
+    <label>Email</label>
+    <input type="email" name="email" value="{{ user.email }}">
+
+    <label>New Password</label>
+    <input type="password" name="password" placeholder="Leave blank to keep current password">
+
+    <button type="submit">Update</button>
+  </form>
+
+  <form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="logout-btn">Logout</button>
+  </form>
+</body>
+</html>

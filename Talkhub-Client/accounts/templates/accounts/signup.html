@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <header class="app-header">
+  TalkHub: Private Chat App
+</header>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+    <link rel="stylesheet" href="{% static 'styles/signup.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Signup</h2>
+        <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="userid">Talkhub ID:</label>
+                <div class="userid-wrapper">
+                    <input type="text" id="userid" name="userid" required>
+                    <button type="button" class="generate-btn" onclick="generateUserID()">Generate Yours</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Signup</button>
+
+            <div class="note">
+                ⚠️ <strong>Important:</strong> Please make sure to save your <em>Talkhub ID</em>. It’s required for login and Other App Operations.
+            </div>
+        </form>
+
+        <a href="{% url 'login' %}">Already have an account? Login here.</a>
+    </div>
+    <div class="image-display">
+        <img id="animated-image" src="" alt="Rotating Image" />
+    </div>
+    <script>
+        function generateUserID() {
+            const randomID = Math.floor(1000000000 + Math.random() * 9000000000);
+            document.getElementById('userid').value = randomID;
+        }
+    </script>
+    <script src="{% static 'scripts/Animate.js' %}"></script>
+</body>
+</html>

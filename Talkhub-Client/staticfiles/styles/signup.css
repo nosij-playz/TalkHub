@@ -1,0 +1,165 @@
+/* Reset and normalize all input fields */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input {
+  all: unset;
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: #e6f0ff;
+  color: #000;
+  font-size: 1rem;
+  box-sizing: border-box;
+  border: none;
+}
+
+/* Body aligns content to the right side with flexbox */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Morph-in animated container on right */
+.container {
+  background-color: #1e3a4c;
+  padding: 1.8rem 2.5rem;
+  border-radius: 35px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  width: 470px;
+  max-width: 90%;
+  margin-right: 5vw;
+  animation: morphIn 1s ease-out forwards;
+  transform-origin: right center;
+  max-height: 850px;
+  box-sizing: border-box;
+}
+
+@keyframes morphIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) skewX(10deg) rotate(-5deg);
+    border-radius: 0 70% 10% 60%;
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05) skewX(0deg) rotate(1deg);
+    border-radius: 10% 30% 50% 20%;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) skewX(0) rotate(0);
+    border-radius: 35px;
+  }
+}
+
+/* Typography */
+h2 {
+  text-align: center;
+  margin-bottom: 1.8rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px #000;
+}
+
+/* Form layout */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.2rem;
+}
+
+/* Labels */
+label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+/* Special layout for UserID field and button */
+.userid-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Generate UserID button */
+.generate-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.generate-btn:hover {
+  background-color: #0069d9;
+}
+
+/* Submit button */
+.submit-btn {
+  margin-top: 1.2rem;
+  padding: 0.75rem;
+  background-color: #28a745;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.submit-btn:hover {
+  background-color: #218838;
+}
+
+/* Note below form */
+.note {
+  font-size: 14px;
+  color: #ff5100;
+  margin-top: 1.5rem;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Bottom link */
+a {
+  display: block;
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #1abc9c;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Autofill fix */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #000 !important;
+  box-shadow: none !important;
+}

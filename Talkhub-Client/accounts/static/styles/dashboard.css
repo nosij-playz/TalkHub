@@ -1,0 +1,166 @@
+/* styles/dashboard.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: flex-end; /* Align container to the right */
+    align-items: center;
+    padding-right: 50px; /* Add some space from the right edge */
+}
+
+.container {
+  background-color: #1e3a4c;
+  padding: 2.5rem;
+  border-radius: 35px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  width: 350px;
+  max-width: 90%;
+  margin-left: 1vw; /* Move to right instead of left */
+
+  /* animation */
+  animation: morphIn 1s ease-out forwards;
+  transform-origin: right center; /* Optional tweak */
+}
+
+/* Morphing shape effect */
+@keyframes morphIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) skewX(10deg) rotate(-5deg);
+    border-radius: 0 70% 10% 60%;
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05) skewX(0deg) rotate(1deg);
+    border-radius: 10% 30% 50% 20%;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) skewX(0) rotate(0);
+    border-radius: 35px;
+  }
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #ffffff;
+    text-shadow: 1px 1px 4px #000;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 30px;
+    color: #cbd5e1;
+}
+
+.chat-form {
+    margin-bottom: 20px;
+}
+
+.btn {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.5);
+}
+
+.btn:hover {
+    background-color: #218838;
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.7);
+    transform: scale(1.05);
+}
+
+.logout-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: #f44336;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: rgba(244, 67, 54, 0.15);
+    border: 2px solid #f44336;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.logout-link:hover {
+    background-color: #f44336;
+    color: white;
+}
+.welcome {
+    margin-bottom: 1rem;
+}
+
+.welcome-text {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: white;
+}
+
+.user-name {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    display: block;
+    margin-top: 0.2rem;
+}
+
+.image-display {
+  position: absolute;
+  left: 5vw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 700px;
+  height: 700px;
+  overflow: hidden;
+}
+.image-display img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.98;
+  animation: none; /* default state */
+  transition: transform 0.5s ease, opacity 0.5s ease, border-radius 0.5s ease;
+}
+@keyframes fadeInScaleMorph {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotate(-3deg);
+    border-radius: 20% 80% 30% 70%;
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05) rotate(1deg);
+    border-radius: 40% 60% 60% 40%;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+    border-radius: 20px;
+  }
+}
+.app-header {
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: rgba(30, 60, 114, 0.6); /* translucent dark blue */
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+}
